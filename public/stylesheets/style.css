@@ -1,5 +1,5 @@
-.review {padding-bottom: 5px;}
-.panel-body.review-container {padding-top: 0;}
-.review-header {margin-bottom: 10px;}
-.reviewAuthor {margin: 0 5px}
-.reviewTimestamp {color: #ccc;}
+.comments {padding-bottom: 5px;}
+.panel-body.comments-container {padding-top: 0;}
+.comments-header {margin-bottom: 10px;}
+.commentsAuthor {margin: 0 5px}
+.commentsTimestamp {color: #ccc;}

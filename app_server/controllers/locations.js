@@ -8,7 +8,7 @@ module.exports.locationInfo = function(req, res, next) {
   res.render('location-info', { title: 'Location Info'});
 };
 
-/* GET Add review page */
-module.exports.addReview = function(req, res, next) {
-  res.render('index', { title: 'Add Review'});
+/* GET Add comments page */
+module.exports.addcomments = function(req, res, next) {
+  res.render('location-comments-form', { title: 'Add comments'});
 }

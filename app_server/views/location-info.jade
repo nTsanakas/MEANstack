@@ -1,82 +1,54 @@
 extends layout
 
 block content
+  script(src='/javascripts/raphael.min.js')
+  script(src='/javascripts/paint.js')
   .row.page-header
     .col-lg-12
-      h1 Serifos
+      h1 Image 1
   .row
-    .col-xs-12.col-md-9
+    .col-xs-12.col-md-12
       .row
-        .col-xs-12.col-sm-10
-          p.rating
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star
-            span.glyphicon.glyphicon-star-empty
-            span.glyphicon.glyphicon-star-empty
-          p 125 High Street, Reading, RG6 1PS
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Opening hours
-            .panel-body
-              p Monday - Friday : 7:00am - 7:00pm
-              p Saturday : 8:00am - 5:00pm
-              p Sunday: closed
-          .panel.panel-primary
-            .panel-heading
-              h2.panel-title Facilities
-            .panel-body
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp; Hot Drinks
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp; Food
-              | &nbsp;
-              span.label.label-warning
-                span.glyphicon.glyphicon-ok
-                | &nbsp; Premium wifi
-              | &nbsp;
         .col-xs-12.col-sm-12.location-map
-          .panel.panel-primary
+          .panel#pnlSurgery.panel-primary
             .panel-heading
-              h2.panel-title Location map
+              h2.panel-title Image Panel
             .panel-body
-              img.img-responsive.img-rounded(src='/images/Serifos.JPG')
+              #myCanvas
+                table.pull-right
+                  tr
+                    td
+                      a.btn#btnSave.btn-default(href='location/comments/new', style='height:35px;width:150px') Save Segmentation
+                  tr
+                    td
+                      br
+                  tr
+                    td
+                      a.btn#btnNew.btn-default(style='height:35px;width:150px') New Organ
+                  tr
+                    td
+                      br
+                  tr
+                    td
+                      a.btn#btnRestart.btn-default(href='', style='height:35px;width:150px') Start Fresh
+              <!--img#serifos.img-responsive(src='/images/Serifos.JPG' style='display:all')-->
       .row
         .col-xs-12
-          .panel.panel-primary.review-panel
+          .panel.panel-primary.comments-panel
             .panel-heading
-              a.btn.btn-default.pull-right(href='location/review/new') Add review
-              h2.panel-title Customer reviews
-            .panel-body.review-container
+              h2.panel-title User Comments
+            .panel-body.comments-container
               .row
-                .review
-                  .well.well-sm.review-header
-                    span.rating
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                    span.reviewAuthor Nikolaos Tsanakas
-                    small.reviewTimestamp  10 April 2017
+                .comments
+                  .well.well-sm.comments-header
+                    span.commentsAuthor Nikolaos Tsanakas
+                    small.commentsTimestamp  10 April 2017
                   .col-xs-12
-                    p What a great place!
+                    p Cut myself a liver and a spleen.
               .row
-                .review
-                  .well.well-sm.review-header
-                    span.rating
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star
-                      span.glyphicon.glyphicon-star-empty
-                      span.glyphicon.glyphicon-star-empty
-                    span.reviewAuthor Tyrion Lannister
-                    small.reviewTimestamp  12 July 2015
+                .comments
+                  .well.well-sm.comments-header
+                    span.commentsAuthor Tyrion Lannister
+                    small.commentsTimestamp  12 July 2015
                   .col-xs-12
-                    p It was ok, though I couldn't get enough wine.
-    .col-xs-12.col-md-3
-      p.lead This beach is on Pixano because summer is coming
-      p Please add a review to hel me out!
+                    p I prefer lungs.
