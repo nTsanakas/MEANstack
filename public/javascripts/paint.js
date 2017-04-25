@@ -1,6 +1,7 @@
 var segmentJSON = {},
     segmentCounter = 0,
-    currentSegment = [];
+    currentSegment = [],
+    paper;
 
 window.onload = function() {
   var src = '/images/Serifos.JPG';
@@ -22,7 +23,7 @@ window.onload = function() {
   /*myImg.isMap = true;
   console.log(myImg.isMap);*/
 
-  var paper = new Raphael(document.getElementById('myCanvas'), width, height);
+  paper = new Raphael(document.getElementById('myCanvas'), width, height);
   var drawnImage = paper.image(src, 0,0, width, height);
   segmentJSON["image"] = JSON.stringify(src);
 
@@ -56,6 +57,8 @@ window.onload = function() {
   });
 
   document.getElementById('btnNew').addEventListener('click', function() {
+    paper.path('M'+ + currentSegment[0][0] + ' ' + currentSegment[0][1] + 'L'
+    + currentSegment[currentSegment.length-1][0] + ' ' + currentSegment[currentSegment.length-1][1])
     segmentJSON["Segment " + (++segmentCounter)] = JSON.stringify(currentSegment);
     alert(segmentJSON["Segment " + segmentCounter]);
     currentSegment = [];
