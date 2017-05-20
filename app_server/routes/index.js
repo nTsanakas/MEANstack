@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var ctrlLocations = require('../controllers/locations');
+var ctrlPlayfield = require('../controllers/playfield');
 var ctrlOthers = require('../controllers/others');
 
-/* Locations pages */
-router.get('/', ctrlLocations.homelist);
-router.get('/location', ctrlLocations.locationInfo);
-router.get('/location/comments/new', ctrlLocations.addcomments);
+/* Playfield pages */
+router.get('/', ctrlPlayfield.homelist);
+router.get('/playfield', ctrlPlayfield.playfieldInfo);
+router.get('/playfield/comments/new', ctrlPlayfield.addcomments);
 
 /* Other pages */
 router.get('/about', ctrlOthers.about);

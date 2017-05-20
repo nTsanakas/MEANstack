@@ -19,7 +19,7 @@ window.onload = function() {
   });*/
 
   /*Apparently this makes the image "clicky", but sends all click coords
-  to the server. BAD/*
+  to the server. BAD as it might generate too much traffic./*
   /*myImg.isMap = true;
   console.log(myImg.isMap);*/
 
