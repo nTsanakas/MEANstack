@@ -58,7 +58,7 @@ window.onload = function() {
 
   document.getElementById('btnNew').addEventListener('click', function() {
     paper.path('M'+ + currentSegment[0][0] + ' ' + currentSegment[0][1] + 'L'
-    + currentSegment[currentSegment.length-1][0] + ' ' + currentSegment[currentSegment.length-1][1])
+    + currentSegment[currentSegment.length-1][0] + ' ' + currentSegment[currentSegment.length-1][1]);
     segmentJSON["Segment " + (++segmentCounter)] = JSON.stringify(currentSegment);
     alert(segmentJSON["Segment " + segmentCounter]);
     currentSegment = [];
@@ -71,7 +71,6 @@ window.onload = function() {
   });
 
   document.getElementById('btnSave').addEventListener('click', function() {
-    /*TODO: Ask Lorenzo if he wants to save it here or send to the server*/
     segmentJSON = {};
     segmentCounter = 0;
     currentSegment = [];
