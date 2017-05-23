@@ -51,14 +51,15 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
   }
 }
 
-module.exports.update = function(user, points, transformationMatrix, shapeScore, date) {
+module.exports.update = function(user, image, points, transformationMatrix, shapeScore, date) {
   user = JSON.stringify(user) || null;
+  image = JSON.stringify(image) || null;
+  points = JSON.stringify(points) || null;
   transformationMatrix = JSON.stringify(transformationMatrix) || null;
   shapeScore = JSON.stringify(shapeScore) || null;
-  image = JSON.stringify(image) || null;
   date = JSON.stringify(date) || new Date();
 
-  if (user === null || points === null || transformationMatrix === null || shapeScore === null)
+  if (user === null || image === null || points === null || transformationMatrix === null || shapeScore === null)
     throw 400;
 
   mDB.production.update({"_id":user},
@@ -78,6 +79,11 @@ module.exports.delete = function(user, date) {
   } else {
     mDB.production.update({"_id":user}, {$pull: {"seg":{"d":date}}});
   }
+}
+
+//Get a random? image from the gridFS.
+module.exports.getGridImg = function() {
+
 }
 
 //MongoDB connection URI

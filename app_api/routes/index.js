@@ -8,9 +8,9 @@ router.post('/playfield/:username/:image', ctrlPlayfield.saveSegmentations);
 router.get('/playfield', ctrlPlayfield.getNextImage);
 
 //Admin
-router.get('/admin/:username/:timestamp', ctrlAdmin.loadSegmentationByUserTime);
-router.get('/admin/:username/:image', ctrlAdmin.loadSegmentationByUserImage);
-router.get('/admin/:image', ctrlAdmin.loadSegmentationByImageTime);
-router.delete('/admin/:username/:timestamp', ctrlAdmin.deleteSegmentation);
+router.get('/admin/:username/time/:timestamp', ctrlAdmin.loadSegmentationByUserTime);
+router.get('/admin/:username/img/:image', ctrlAdmin.loadSegmentationByUserImage);
+router.get('/admin/time/:timestamp/img/:image', ctrlAdmin.loadSegmentationByImageTime);
+router.delete('/admin/del/:username/time/:timestamp', ctrlAdmin.deleteSegmentation);
 
 module.exports = router;
