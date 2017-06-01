@@ -9,7 +9,7 @@ module.exports.loadSegmentationByUserTime = function(req, res, next) {
       //res.status(200);
       //res.json({"status":"UserTime"});
     } catch (e) {
-      res.status(e);
+      sendJsonResponse(res, e, {"message":"Database error..."});
     }
   } else {
     sendJsonResponse(res, 404, {"message":"Missing parameter..."});
@@ -24,7 +24,7 @@ module.exports.loadSegmentationByUserImage = function(req, res, next) {
       //res.status(200);
       //res.json({"status":"UserTime"});
     } catch (e) {
-      res.status(e);
+      sendJsonResponse(res, e, {"message":"Database error..."});
     }
   } else {
     sendJsonResponse(res, 404, {"message":"Missing parameter..."});
@@ -39,7 +39,7 @@ module.exports.loadSegmentationByImageTime = function(req, res, next) {
       //res.status(200);
       //res.json({"status":"UserTime"});
     } catch (e) {
-      res.status(e);
+      sendJsonResponse(res, e, {"message":"Database error..."});
     }
   } else {
     sendJsonResponse(res, 404, {"message":"Missing parameter..."});
@@ -54,7 +54,7 @@ module.exports.deleteSegmentation = function(req, res, next) {
       //res.status(200);
       //res.json({"status":"UserTime"});
     } catch (e) {
-      res.status(e);
+      sendJsonResponse(res, e, {"message":"Database error..."});
     }
   } else {
     sendJsonResponse(res, 404, {"message":"Missing parameter..."});

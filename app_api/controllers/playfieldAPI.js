@@ -10,7 +10,7 @@ module.exports.saveSegmentations = function(req, res, next) {
       //res.status(201);
       //res.json({"status":"saveSegs"});
     } catch (e) {
-      res.status(e);
+      sendJsonResponse(res, e, {"message":"Database error..."});
     }
   } else {
     sendJsonResponse(res, 404, {"message":"Missing parameter..."});
