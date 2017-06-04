@@ -6,7 +6,6 @@ var ctrlOthers = require('../controllers/others');
 /* Playfield pages */
 router.get('/', ctrlPlayfield.homelist);
 router.get('/playfield', ctrlPlayfield.playfieldInfo);
-router.get('/playfield/comments/new', ctrlPlayfield.addcomments);
 
 /* Other pages */
 router.get('/about', ctrlOthers.about);

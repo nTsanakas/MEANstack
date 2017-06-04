@@ -3,6 +3,9 @@ var segmentJSON = {},
     currentSegment = [],
     paper;
 
+//Simulate having different users, keep user1 out of it
+var USER = 'user' + Math.floor(Math.random() * 10 + 2);
+
 window.onload = function() {
   var src = '/images/Serifos.JPG';
   var height = 512;
@@ -56,11 +59,17 @@ window.onload = function() {
     paper.path(svgPath);
   });
 
-  document.getElementById('btnNew').addEventListener('click', function() {
+  document.getElementById('btnClose').addEventListener('click', function() {
     paper.path('M'+ + currentSegment[0][0] + ' ' + currentSegment[0][1] + 'L'
     + currentSegment[currentSegment.length-1][0] + ' ' + currentSegment[currentSegment.length-1][1]);
     segmentJSON["Segment " + (++segmentCounter)] = JSON.stringify(currentSegment);
     alert(segmentJSON["Segment " + segmentCounter]);
+
+    var requestOptions = {
+      url : "http://localhost:5000/API/playfield/" + USER + "/" + src,
+      image : src
+    }
+    
     currentSegment = [];
   });
 

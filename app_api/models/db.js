@@ -1,29 +1,32 @@
 //Provide access to the database from outside this file.
 var mDB;
 
+//Acting as global constant to set the collection we are using.
+var COLLECTION = 'production';
+
 var validArgument = function(arg) {
   if (arg !== null) return arg;
 }
 //Define CRUD operations, to be masked in the controllers.
 //They are kept generalized, but do not allow everything.
 module.exports.create = function(user,password) {
-  user = JSON.stringify(user) || null;
-  password = JSON.stringify(password) || null;
+  user = user || null;
+  password = password || null;
 
   if (user === null || password === null) throw 400;
 
-  mDB.production.insert({"_id":user, "p":password, "s":0, "n":0,"seg":[]});
+  mDB.collection(COLLECTION).insert({"_id":user, "p":password, "s":0, "n":0,"seg":[]});
 }
 
 module.exports.read = function(user, score, numberOfSegs, transformationMatrix, shapeScore, date, image) {
   //We do not need all parameters, plan accordingly.
-  user = JSON.stringify(user) || null;
-  score = JSON.stringify(score) || null;
-  numberOfSegs = JSON.stringify(numberOfSegs) || null;
-  transformationMatrix = JSON.stringify(transformationMatrix) || null;
-  shapeScore = JSON.stringify(shapeScore) || null;
-  date = JSON.stringify(date) || null;
-  image = JSON.stringify(image) || null;
+  user = user || null;
+  score = score || null;
+  numberOfSegs = numberOfSegs || null;
+  transformationMatrix = transformationMatrix || null;
+  shapeScore = shapeScore || null;
+  date = date || null;
+  image = image || null;
 
   var myMatch1 = {};
   if (user !== null) myMatch1._id = user;
@@ -37,14 +40,14 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
   if (image !== null) myMatch2.seg.i = image;
 
   if (myMatch2 !== {}) {
-    return mDB.production.aggregate([
+    return mDB.collection(COLLECTION).aggregate([
       {$match : myMatch1},
       {$project : {seg:1}},
       {$unwind : '$seg'},
       {$match : myMatch2}
     ]).toArray();
   } else {
-    return mDB.production.aggregate([
+    return mDB.collection(COLLECTION).aggregate([
       {$match : myMatch1},
       {$project : {seg:0}}
     ]).toArray();
@@ -52,32 +55,33 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
 }
 
 module.exports.update = function(user, image, points, transformationMatrix, shapeScore, date) {
-  user = JSON.stringify(user) || null;
-  image = JSON.stringify(image) || null;
-  points = JSON.stringify(points) || null;
-  transformationMatrix = JSON.stringify(transformationMatrix) || null;
-  shapeScore = JSON.stringify(shapeScore) || null;
-  date = JSON.stringify(date) || new Date();
+  user = user || null;
+  image = image || null;
+  points = points || null;
+  transformationMatrix = transformationMatrix || null;
+  shapeScore = shapeScore || null;
+  date = date || new Date();
 
   if (user === null || image === null || points === null || transformationMatrix === null || shapeScore === null)
     throw 400;
 
-  mDB.production.update({"_id":user},
+  mDB.collection(COLLECTION).update({"_id":user},
     {$inc: {"n":1, "s":shapeScore},
     $addToSet: {"seg":{"p":points, "tm":transformationMatrix, "s":shapeScore, "d":date}}});
 
 }
 
+//To delete a segmentation without knowing the date, find the segmentation, extract the date, then use this.
 module.exports.delete = function(user, date) {
-  user = JSON.stringify(user) || null;
-  date = JSON.stringify(date) || null;
+  user = user || null;
+  date = date || null;
 
   if (user === null) throw 400;
 
   if (date === null) {
-    mDB.production.remove({"_id":user},{justOne:true});
+    mDB.collection(COLLECTION).remove({"_id":user},{justOne:true});
   } else {
-    mDB.production.update({"_id":user}, {$pull: {"seg":{"d":date}}});
+    mDB.collection(COLLECTION).update({"_id":user}, {$pull: {"seg":{"d":date}}});
   }
 }
 

@@ -7,8 +7,3 @@ module.exports.homelist = function(req, res, next) {
 module.exports.playfieldInfo = function(req, res, next) {
   res.render('playfield-info', { title: 'Playfield Info'});
 };
-
-/* GET Add comments page */
-module.exports.addcomments = function(req, res, next) {
-  res.render('playfield-comments-form', { title: 'Add comments'});
-}
