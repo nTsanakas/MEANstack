@@ -5,7 +5,7 @@ var imgURL,
 var TRANS_MAT = [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1];
 var SCORE = 50;
 // var SERVER_URL = "http://localhost:5000/api/playfield/"
-var SERVER_URL = "https://shielded-dusk-68238.herokuapp.com/playfield/";
+var SERVER_URL = "https://shielded-dusk-68238.herokuapp.com/api/playfield/";
 //Simulate having different users, keep user1 out of it
 // var USER = 'user' + Math.floor(Math.random() * 10 + 2);
 var USER = 'user1408';
