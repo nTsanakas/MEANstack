@@ -31,7 +31,7 @@ var saveSeg = function(imgURL) {
     traditional: true,
     success: function (result) {
       if (result) {
-        processResponse(result);
+        // processResponse(result);
         alert(result);
       } else {
         resultDiv.html(result);
