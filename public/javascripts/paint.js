@@ -12,6 +12,10 @@ var USER = 'user1408';
 
 var saveSeg = function(imgURL) {
 
+  if (process.env.NODE_ENV === 'production') {
+    SERVER_URL = "https://shielded-dusk-68238.herokuapp.com/playfield/";
+  }
+
   var rURL = SERVER_URL + USER + "/" + imgURL;
   var resultDiv = $("#resultDivContainer");
 
