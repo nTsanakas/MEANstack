@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  script(src='/javascripts/raphael.min.js')
+  script(src='/javascripts/pAdmin.js')
+  .row.page-header
+    .col-lg-12
+      h1 Image 1
+  .row
+    .col-xs-12.col-md-12
+      .row
+        .col-xs-12.col-sm-12.playfield-map
+          .panel#pnlSurgery.panel-primary
+            .panel-heading
+              h2.panel-title Image Panel
+            .panel-body
+              #myCanvas
+                table.pull-right
+                  tr
+                    td
+                      form
+                        input(type='text', name='username', id='username', style='height:35px;width:150px', value='user1408')
+                        br
+                        br
+                        input(type='text', name='img', id='imgURL', style='height:35px;width:150px', value='images/Serifos.jpg')
+                        br
+                        br
+                        a.btn#btnLoad.btn-default(style='height:35px;width:150px') Get Segments
+      .row

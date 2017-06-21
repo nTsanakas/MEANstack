@@ -2,7 +2,7 @@
 var mDB;
 
 //MongoDB connection URI
-var user = user //Can be user or admin atm.
+var user = 'user' //Can be user or admin atm.
 var dbURI = 'mongodb://localhost:27017/exampleDb';
 var olURI = 'mongodb://user:12345@ds111461.mlab.com:11461/pixano';
 
@@ -39,18 +39,18 @@ mongoClient.connect(dbURI, function(err, db) {
 
   var collection = db.createCollection(COLLECTION);
 
-  db.collection(COLLECTION, function(err,collection){
-    collection.insert({ "_id" : "user1408", "p" : 123456, "s" : 238, "n" : 3,
-      "seg" : [ { "p" : [ [ 840, 451 ], [ 853, 454 ], [ 856, 440 ], [ 837, 432 ], [ 834, 444 ] ],
-      "tm" : [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ], "i" : "http://beispiel.com",
-      "s" : 85, "d" : new Date() } ] });
-    collection.count(function (err, count) {
-      if (err) throw err;
-    });
-    collection.find().toArray(function(err, documents){
-      console.log(documents);
-    });
-  });
+  // db.collection(COLLECTION, function(err,collection){
+  //   // collection.insert({ "_id" : "user1408", "p" : 123456, "s" : 238, "n" : 3,
+  //   //   "seg" : [ { "p" : [ [ 840, 451 ], [ 853, 454 ], [ 856, 440 ], [ 837, 432 ], [ 834, 444 ] ],
+  //   //   "tm" : [ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 ], "i" : "http://beispiel.com",
+  //   //   "s" : 85, "d" : new Date() } ] });
+  //   collection.count(function (err, count) {
+  //     if (err) throw err;
+  //   });
+  //   collection.find().toArray(function(err, documents){
+  //     console.log(documents[5]);
+  //   });
+  // });
 
   //On SIGINT close MongoDB connection.
   process.on('SIGINT', function () {
@@ -116,12 +116,12 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
   var myMatch2 = {};
   if (transformationMatrix !== null) myMatch2['seg.tm'] = transformationMatrix;
   if (shapeScore !== null) myMatch2['seg.s'] = {$gte : shapeScore};
-  if (date !== null) myMatch2['seg.d ']= {$gte : date};
+  if (date !== null) myMatch2['seg.d']= {$gte : date};
   if (image !== null) myMatch2['seg.i'] = image;
 
-  console.log("db myMatch2: ");
-  console.log(myMatch2);
-  console.log(myMatch1);
+  // console.log("db myMatch2: ");
+  // console.log(myMatch2);
+  // console.log(myMatch1);
 
   if (JSON.stringify(myMatch2) !== JSON.stringify({})) {
     console.log("wtf just checked");
@@ -131,11 +131,12 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
         {$project : {seg:1}},
         {$unwind : '$seg'},
         {$match : myMatch2}
-      ]).toArray(function(err, documents){
-        console.log("These are the big aggregation docs: ");
-        console.log(documents);
+      ]).toArray(function(err, documents) {
+        // console.log("These are the big aggregation docs: ");
+        // console.log(JSON.stringify(documents[0]));
+        // console.log('It is moving');
         res.status(200);
-        res.json(documents);
+        res.jsonp(documents);
       });
     });
   } else {
@@ -144,8 +145,8 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
         {$match : myMatch1},
         {$project : {seg:0}}
       ]).toArray(function(err, documents){
-        console.log("These are the aggregation docs: ");
-        console.log(documents);
+        // console.log("These are the aggregation docs: ");
+        // console.log(documents);
         res.status(200);
         res.json(documents);
       });
@@ -153,9 +154,9 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
   }
 }
 
-
+// All parametrs have to be used. If date is not used, a new date will be generated.
 module.exports.update = function(user, image, points, transformationMatrix, shapeScore, date, res) {
-  console.log("Got here 3");
+  // console.log("Got here 3");
   user = user || null;
   image = image || null;
   points = points || null;
@@ -163,22 +164,24 @@ module.exports.update = function(user, image, points, transformationMatrix, shap
   shapeScore = shapeScore || null;
   date = date || new Date();
 
-  console.log("Got here 4"+user+image+points+transformationMatrix+shapeScore+date);
+  // console.log("Got here 4"+user+image+points+transformationMatrix+shapeScore+date);
   if (user === null || image === null || points === null || transformationMatrix === null || shapeScore === null)
     throw 400;
-  console.log("Got here 5"+user+image+points+transformationMatrix+shapeScore+date);
+  // console.log("Got here 5"+user+image+points+transformationMatrix+shapeScore+date);
 
   mDB.collection(COLLECTION, function(err, collection) {
     console.log("Got here 6"+user+image+points+transformationMatrix+shapeScore);
     collection.update({"_id":user},
     {$inc: {"n":1, "s":shapeScore},
-    $addToSet: {"seg":{"p":points, "tm":transformationMatrix, "s":shapeScore, "d":date}}});
+    $addToSet: {"seg":{"p":points, "tm":transformationMatrix, "s":shapeScore, "i":image, "d":date}}});
     res.status(200);
-    res.json({"status":"savedSeg"});
+    res.json({"bla":"savedSeg"});
   });
 }
 
-//To delete a segmentation without knowing the date, find the segmentation, extract the date, then use this.
+// To delete a segmentation without knowing the date, find the segmentation,
+// extract the date, then use this. Careful with this, it can remove users and
+// all their data!
 module.exports.delete = function(user, date, res) {
   user = user || null;
   date = date || null;

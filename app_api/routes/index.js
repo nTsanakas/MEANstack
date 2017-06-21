@@ -9,7 +9,7 @@ router.get('/playfield', ctrlPlayfield.getNextImage);
 
 //Admin
 router.get('/admin/:username/time/:timestamp', ctrlAdmin.loadSegmentationByUserTime);
-router.get('/admin/:username/img/:image', ctrlAdmin.loadSegmentationByUserImage);
+router.get('/admin/:username/:image', ctrlAdmin.loadSegmentationByUserImage);
 router.get('/admin/time/:timestamp/img/:image', ctrlAdmin.loadSegmentationByImageTime);
 router.delete('/admin/del/:username/time/:timestamp', ctrlAdmin.deleteSegmentation);
 
