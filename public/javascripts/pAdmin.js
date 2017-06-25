@@ -8,7 +8,7 @@ var SCORE = 50;
 // Unfortunately, this will have to b hard coded afaik.
 var SERVER_URL = "http://localhost:5000/api/admin/";
 // var SERVER_URL = "https://shielded-dusk-68238.herokuapp.com/api/playfield/";
-//Simulate having different users, keep user1 out of it
+// Simulate having different users, keep user1 out of it
 // var USER = 'user' + Math.floor(Math.random() * 10 + 2);
 var USER = 'user1408';
 
@@ -71,7 +71,7 @@ window.onload = function() {
   };
 
   var loadSeg = function(userN, imgURL, callback) {
-    var rURL = "../api/admin/" + userN + "/" + imgURL;
+    var rURL = "../api/admin/ui/" + userN + "/" + imgURL;
 
     $.ajax({
       url: rURL,
@@ -95,14 +95,16 @@ window.onload = function() {
   }
 
   document.getElementById('btnLoad').addEventListener('click', function() {
-    src = document.getElementById('imgURL').value;
-    // src = "http://beispiel.com";
+    var src2 = document.getElementById('imgURL').value;
+    // Should also check if the address is valid.
+    if (src2) {
+      src = src2;
+      drawnImage = paper.image('/'+src, 0,0, width, height);
+    }
+
     imgURL = src.replace(/\//g, "%2F").replace(/:/g, "%3A");
     USER = document.getElementById('username').value;
 
-    alert(imgURL);
-
-    // drawnImage = paper.image('/'+src, 0,0, width, height);
     loadSeg("user1408", imgURL, drawMyPath);
     // drawMyPath(currentSegment);
     console.log('wtf the end');

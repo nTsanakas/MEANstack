@@ -10,6 +10,7 @@
     "npm": "~3.10.10"
   },
   "dependencies": {
+    "@risingstack/trace": "^3.14.0",
     "body-parser": "~1.17.1",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",

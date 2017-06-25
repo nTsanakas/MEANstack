@@ -119,10 +119,6 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
   if (date !== null) myMatch2['seg.d']= {$gte : date};
   if (image !== null) myMatch2['seg.i'] = image;
 
-  // console.log("db myMatch2: ");
-  // console.log(myMatch2);
-  // console.log(myMatch1);
-
   if (JSON.stringify(myMatch2) !== JSON.stringify({})) {
     console.log("wtf just checked");
     mDB.collection(COLLECTION, function(err, collection) {
@@ -132,9 +128,6 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
         {$unwind : '$seg'},
         {$match : myMatch2}
       ]).toArray(function(err, documents) {
-        // console.log("These are the big aggregation docs: ");
-        // console.log(JSON.stringify(documents[0]));
-        // console.log('It is moving');
         res.status(200);
         res.jsonp(documents);
       });
@@ -145,8 +138,6 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
         {$match : myMatch1},
         {$project : {seg:0}}
       ]).toArray(function(err, documents){
-        // console.log("These are the aggregation docs: ");
-        // console.log(documents);
         res.status(200);
         res.json(documents);
       });
@@ -156,7 +147,6 @@ module.exports.read = function(user, score, numberOfSegs, transformationMatrix, 
 
 // All parametrs have to be used. If date is not used, a new date will be generated.
 module.exports.update = function(user, image, points, transformationMatrix, shapeScore, date, res) {
-  // console.log("Got here 3");
   user = user || null;
   image = image || null;
   points = points || null;
@@ -167,7 +157,6 @@ module.exports.update = function(user, image, points, transformationMatrix, shap
   // console.log("Got here 4"+user+image+points+transformationMatrix+shapeScore+date);
   if (user === null || image === null || points === null || transformationMatrix === null || shapeScore === null)
     throw 400;
-  // console.log("Got here 5"+user+image+points+transformationMatrix+shapeScore+date);
 
   mDB.collection(COLLECTION, function(err, collection) {
     console.log("Got here 6"+user+image+points+transformationMatrix+shapeScore);
@@ -204,6 +193,7 @@ module.exports.delete = function(user, date, res) {
 }
 
 //Get a random? image from the gridFS.
-module.exports.getGridImg = function() {
-
+module.exports.getGridImg = function(res) {
+  res.status(200);
+  res.json({"_id":"Tegernsee.JPG"});
 }

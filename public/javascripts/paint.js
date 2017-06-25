@@ -99,7 +99,25 @@ window.onload = function() {
   });
 
   document.getElementById('btnNext').addEventListener('click', function() {
-
+    var rURL = "../api/playfield";
+    $.ajax({
+      url: rURL,
+      type: "GET",
+      dataType: "json",
+      success: function (result) {
+        if (result) {
+          // processResponse(result);
+          // alert(result.bla);
+          src = result._id;
+        } else {
+          alert("Response empty.");
+        }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        alert(xhr.status);
+        alert(thrownError);
+      }
+    });
     currentSegment = [];
   });
 }

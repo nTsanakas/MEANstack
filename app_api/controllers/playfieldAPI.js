@@ -6,15 +6,10 @@ module.exports.saveSegmentations = function(req, res, next) {
   // console.log("Got here");
   if (req.params && req.params.username && req.params.image) {
     var object = JSON.parse(Object.keys(req.body)[0]);
-    // console.log("Got here 2");
-
-    // console.log(object);
-
     try {
       db.update(req.params.username, req.params.image, object.points,
                 object.transformationMatrix, object.shapeScore, null, res);
     } catch (e) {
-      // console.log("Oopsi");
       res.status(e);
       res.json({"status":"Database error."});
     }
