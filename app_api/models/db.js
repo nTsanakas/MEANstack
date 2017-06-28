@@ -96,9 +96,6 @@ module.exports.create = function(user,password, res) {
 //Future me, collapse for ease of reading ctrl code.
 module.exports.read = function(user, score, numberOfSegs, transformationMatrix, shapeScore, date, image, res) {
 
-  var result,
-      curse;
-
   //We do not need all parameters, plan accordingly.
   user = user || null;
   score = score || null;
